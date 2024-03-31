@@ -46,13 +46,21 @@ def encrypt_csv_column(file_path, key):
     # 导出到CSV，不包括索引
     df.to_csv(output_file_path, index=False)
 
+# def decrypt_csv_column(file_path,key):#解密
+#     df = pd.read_csv(file_path)
+#     try:
+#         df["id"] = df["id"].apply(lambda x: des_decrypt(base64.b64decode(x.encode('utf-8')), key))
+#     except Exception as e:
+#             print(f"Error occurred: {e}")
+#             return False
+#     # 指定导出的路径和文件名
+#     df.to_csv(file_path, index=False)
+#     return True
+
 def decrypt_csv_column(file_path,key):#解密
     df = pd.read_csv(file_path)
-    try:
-        df["id"] = df["id"].apply(lambda x: des_decrypt(base64.b64decode(x.encode('utf-8')), key))
-    except Exception as e:
-            print(f"Error occurred: {e}")
-            return False
+
+    df["id"] = df["id"].apply(lambda x: des_decrypt(base64.b64decode(x.encode('utf-8')), key))
     # 指定导出的路径和文件名
     df.to_csv(file_path, index=False)
     return True
